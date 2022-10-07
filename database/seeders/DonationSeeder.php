@@ -26,7 +26,7 @@ class DonationSeeder extends Seeder
             Donation::create([
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'image' => 'default.jpg',
+                'image' => '-',
                 'type' => 'Disabilitas',
                 'description' => $faker->paragraph,
             ]);
