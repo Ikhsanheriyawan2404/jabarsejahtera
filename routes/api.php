@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\V1\{ProductController, DonationController};
+use App\Http\Controllers\API\V1\{CategoryController, ProductController, DonationController};
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('donations', DonationController::class);
 });
