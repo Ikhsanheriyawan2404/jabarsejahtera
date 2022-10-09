@@ -19,7 +19,8 @@ class CreateDonationsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('image');
-            $table->unsignedBigInteger('category_id');
+            // $table->unsignedBigInteger('category_id');
+            $table->string('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
             $table->timestamps();
 
             // $table->foreign('category_id')->references('id')->on('categories')->on('categories')->onDelete('RESTRICT');
