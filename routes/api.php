@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\V1\Auth\RegisterController;
 use App\Http\Controllers\API\V1\{CategoryController, ProductController, DonationController};
+use App\Http\Controllers\API\V1\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +17,15 @@ use App\Http\Controllers\API\V1\{CategoryController, ProductController, Donation
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('v1')->group(function () {
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('products', ProductController::class);
-    Route::apiResource('donations', DonationController::class);
+    Route::post('register', RegisterController::class);
+    Route::post('login', LoginController::class);
+    Route::post('forgot-password', LoginController::class);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('donations', DonationController::class);
+    });
 });
 
