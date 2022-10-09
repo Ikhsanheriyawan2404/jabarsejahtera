@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonationsTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateDonationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('donations', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('slug');
             $table->text('description');
             $table->string('image');
-            $table->decimal('total_budget', 15, 2);
-            // $table->unsignedBigInteger('category_id');
+            $table->string('organizer');
+            $table->date('date');
+            $table->string('location');
             $table->string('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
             $table->timestamps();
-
-            // $table->foreign('category_id')->references('id')->on('categories')->on('categories')->onDelete('RESTRICT');
         });
     }
 
@@ -35,6 +34,6 @@ class CreateDonationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donations');
+        Schema::dropIfExists('events');
     }
 }
