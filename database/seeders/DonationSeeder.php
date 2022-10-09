@@ -20,14 +20,13 @@ class DonationSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        $type = ['Bencana Alam', 'Disabilitas', 'Yatim Piatu'];
         $title = $faker->sentence;
         for ($i = 0; $i < 50; $i++) {
             Donation::create([
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'image' => '-',
-                'type' => 'Disabilitas',
+                'image' => 'default.jpg',
+                'category_id' => rand(1,3),
                 'description' => $faker->paragraph,
             ]);
         }

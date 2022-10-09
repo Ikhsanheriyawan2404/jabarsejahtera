@@ -16,7 +16,21 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return new CategoryResource(true, 'Details Category', Category::find($category));
+        return new CategoryResource(true, 'Details Category', $category);
+    }
+
+    public function store()
+    {
+        $this->validate(request(), ['name' => 'required']);
+        $category = Category::create(['name' => request('name')]);
+        return new CategoryResource(true, 'Berhasil menambahkan kategori', $category);
+    }
+
+    public function update(Category $category)
+    {
+        $this->validate(request(), ['name' => 'required']);
+        $category->update(['name' => request('name')]);
+        return new CategoryResource(true, 'Berhasil mengedit kategori', $category);
     }
 
 }

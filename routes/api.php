@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\Auth\RegisterController;
-use App\Http\Controllers\API\V1\{CategoryController, ProductController, DonationController};
+use App\Http\Controllers\API\V1\{CategoryController, UserController, DonationController};
 use App\Http\Controllers\API\V1\Auth\LoginController;
 
 /*

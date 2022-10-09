@@ -9,5 +9,10 @@ class Donation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'image', 'description', 'type'];
+    protected $fillable = ['title', 'slug', 'image', 'description', 'category_id'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
