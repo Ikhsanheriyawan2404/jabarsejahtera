@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\Auth\RegisterController;
-use App\Http\Controllers\API\V1\{CategoryController, UserController, DonationController};
+use App\Http\Controllers\API\V1\{CategoryController, UserController, DonationController, EventController};
 use App\Http\Controllers\API\V1\Auth\LoginController;
 
 /*
@@ -22,7 +22,7 @@ Route::prefix('v1')->group(function () {
     Route::post('forgot-password', LoginController::class);
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('events', EventController::class);
         Route::apiResource('users', UserController::class);
         Route::apiResource('donations', DonationController::class);
     });

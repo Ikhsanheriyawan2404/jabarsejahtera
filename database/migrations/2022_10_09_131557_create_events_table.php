@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('organizer');
             $table->date('date');
             $table->string('location');
-            $table->string('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
+            $table->enum('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
             $table->timestamps();
         });
     }

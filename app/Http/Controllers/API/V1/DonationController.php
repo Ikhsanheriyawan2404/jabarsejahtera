@@ -12,7 +12,7 @@ class DonationController extends Controller
 {
     public function index()
     {
-        return new DonationResource(true, null, Donation::with('category')->get());
+        return new DonationResource(true, null, Donation::get());
     }
 
     public function show($slug)
@@ -29,22 +29,21 @@ class DonationController extends Controller
             'slug' => Str::slug(request('title')),
             'image' => request('image'),
             'description' => request('description'),
-            'category_id' => request('category_id'),
+            'category' => request('category'),
         ]);
 
         return new DonationResource(true, 'Donasi berhasil ditambahkan', $donation);
     }
 
-    public function update(DonationRequest $request, $slug)
+    public function update(DonationRequest $request, Donation $donation)
     {
         $request->validated();
-        $donation = Donation::where('slug', $slug)->get();
         $donation->update([
             'title' => request('title'),
             'slug' => Str::slug(request('title')),
             'image' => request('image'),
             'description' => request('description'),
-            'category_id' => request('category_id'),
+            'category' => request('category'),
         ]);
 
         return new DonationResource(true, 'Donasi berhasil diedit', $donation);

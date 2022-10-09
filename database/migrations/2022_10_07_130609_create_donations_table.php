@@ -21,7 +21,7 @@ class CreateDonationsTable extends Migration
             $table->string('image');
             $table->decimal('total_budget', 15, 2);
             // $table->unsignedBigInteger('category_id');
-            $table->string('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
+            $table->enum('category', ['Bencana Alam', 'Disabilitas', 'Kaum Dhuafa', 'Yatim Piatu']);
             $table->timestamps();
 
             // $table->foreign('category_id')->references('id')->on('categories')->on('categories')->onDelete('RESTRICT');

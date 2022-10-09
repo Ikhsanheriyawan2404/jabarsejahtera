@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DonationRequest extends FormRequest
+class EventStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,9 @@ class DonationRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
+            'organizer' => 'required',
+            'date' => 'required',
+            'location' => 'required',
             'category' => 'required',
         ];
     }
