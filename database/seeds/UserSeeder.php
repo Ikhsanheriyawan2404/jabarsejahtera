@@ -17,11 +17,19 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Ikhsan Heriyawan',
             'email' => 'ikhsan@gmail.com',
+            'role' => '1',
+            'password' => password_hash('admin123', PASSWORD_DEFAULT),
+        ]);
+
+        $user = User::create([
+            'name' => 'Ikhsan Kuncoro',
+            'email' => 'ikhsan24@gmail.com',
+            'role' => '0',
             'password' => password_hash('admin123', PASSWORD_DEFAULT),
         ]);
 
         $faker = Factory::create();
-        for($i = 0; $i < 50; $i++) {
+        for($i = 0; $i < 5; $i++) {
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
