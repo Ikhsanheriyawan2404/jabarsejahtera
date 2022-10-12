@@ -32,7 +32,40 @@ class AuthController extends Controller
         return new UserResource(true, 'Berhasil registrasi user.', null);
     }
 
-    public function login() {}
+    public function login()
+    {
+        $this->validate(request(), [
+            'email' => 'required',
+            'password' => 'required|min:8',
+            // 'confirmed' => 'required|min:8',
+        ]);
 
-    public function logout() {}
+        $data = [
+            'email' => request('email'),
+            'password' => request('password'),
+        ];
+
+        if (!auth()->attempt($data)) {
+            return new UserResource(false, 'Username / password tidak cook', null);
+        }
+
+        $token = auth()->user()->createToken('token')->accessToken;
+
+        $data = [
+            'token' => $token,
+            'user' => auth()->user(),
+        ];
+        return new UserResource(true, 'Berhasil login.', $data);
+    }
+
+    public function logout()
+    {
+        if (auth()->user()) {
+            auth()->user()->tokens->each(function($token, $key) {
+                $token->delete();
+            });
+        }
+
+        return new UserResource(true, 'Berhasil logout.');
+    }
 }
