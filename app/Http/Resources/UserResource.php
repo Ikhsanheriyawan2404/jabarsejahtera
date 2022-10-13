@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DonationResource extends JsonResource
+class UserResource extends JsonResource
 {
     public $status;
     public $message;

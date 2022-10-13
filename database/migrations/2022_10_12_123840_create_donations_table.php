@@ -16,10 +16,10 @@ class CreateDonationsTable extends Migration
         Schema::create('donations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('slug');
             $table->text('description');
-            $table->string('image');
-            $table->enum('type', ['Bencana Alam', 'Yatim Piatu', 'Disabilitas']);
+            $table->decimal('total_budget', 15, 2);
+            $table->string('image')->nullable();
+            $table->enum('category', ['Bencana Alam', 'Yatim Piatu', 'Disabilitas']);
             $table->timestamps();
         });
     }
