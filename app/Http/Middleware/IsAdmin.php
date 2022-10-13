@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
 
 class IsAdmin
 {
@@ -17,10 +16,10 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->role == 1) {
+        if (auth()->user() && auth()->user()->role == 1) {
             return $next($request);
         }
 
-        return new UserResource(false, 'Anda tidak memiliki akses');
+        return response()->json(new UserResource(false, 'Anda tidak memiliki akses'), 403);
     }
 }
