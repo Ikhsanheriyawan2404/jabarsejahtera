@@ -22,12 +22,12 @@ class AuthController extends Controller
                 ]);
 
                 UserDetail::create([
-                    'user_id' => $user->id,
+                    'id' => $user->id,
                     'phone_number' => request('phone_number'),
                 ]);
             });
         } catch (\Exception $e) {
-            return new UserResource(false, false, 'Error', $e);
+            return new UserResource(false, 'Error', $e);
         }
         return new UserResource(true, 'Berhasil registrasi user.', null);
     }

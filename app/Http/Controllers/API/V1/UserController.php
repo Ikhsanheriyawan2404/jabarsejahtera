@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        // dd(auth()->user() && auth()->user()->role == "1");
         return new UserResource(true, 'List Users', User::with('user_detail')->get());
     }
 
