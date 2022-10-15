@@ -8,7 +8,7 @@
 </head>
 <body>
         <label for="nominal">nominal</label>
-        <input type="number" name="nominal" value="{{ $transaction->total_price }}" disabled>
+        <input type="number" name="nominal" value="{{ $transaction->nominal }}" disabled>
         <label for="nominal">nama</label>
         <input type="text" name="name" value="{{ $transaction->name }}" disabled>
         <label for="nominal">nomor hp</label>

@@ -19,21 +19,20 @@ class CreateSnapTokenService extends Midtrans
     {
         $params = [
             'transaction_details' => [
-                'order_id' => $this->transaction->code_transaction,
-                'gross_amount' => $this->transaction->total_price,
+                'order_id' => $this->transaction->uuid,
+                'gross_amount' => $this->transaction->nominal,
             ],
-            'donation' => [
+            'item_details' => [
                 [
                     'id' => 1,
-                    'total_budget' => '150000',
-                    'title' => 'Flashdisk Toshiba 32GB',
-                    'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quibusdam error tempora esse sapiente accusamus rem quae quo temporibus corrupti dolor excepturi, vero provident ut aperiam illo commodi numquam a',
+                    'price' => $this->transaction->nominal,
+                    'name' => isset($this->transaction->donation) ? $this->transaction->donation->title : 'Zakat',
+                    'quantity' => 1
                 ],
             ],
             'customer_details' => [
-                'name' => 'Martin Mulyo Syahidin',
-                'email' => 'mulyosyahidin95@gmail.com',
-                'phone_number' => '081234567890',
+                'first_name' => $this->transaction->name,
+                'phone' => $this->transaction->phone_number,
             ]
         ];
 

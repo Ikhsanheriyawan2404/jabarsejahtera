@@ -15,9 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->char('uuid', 36)->unique();
             $table->string('code_transaction');
             $table->unsignedBigInteger('donation_id')->nullable();
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('nominal', 10, 2);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('phone_number');

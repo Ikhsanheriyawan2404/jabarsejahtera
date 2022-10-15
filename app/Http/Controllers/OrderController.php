@@ -23,17 +23,13 @@ class OrderController extends Controller
     public function index()
     {
         $record = Transaction::latest()->first();
-
-        //check first day in a year
-        if ( isset($record->transaction) ){
+        if (isset($record)){
             $expNum = explode('-', $record->code_transaction);
             //increase 1 with last invoice number
-            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1] .'-'. $expNum[2]+1;
+            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1] .'-'. ($expNum[2]+1);
         } else {
             $nextInvoiceNumber = 'INV' . '-' . date('dmy') .'-0001';
         }
-
-        echo $nextInvoiceNumber;
         $transactions = Transaction::all();
 
         return view('home', compact('transactions'));
@@ -46,22 +42,21 @@ class OrderController extends Controller
 
     public function store_transaction(Donation $donation)
     {
-        //get last record
         $record = Transaction::latest()->first();
-
-        //check first day in a year
-        if ( isset($record->transaction) ){
+        if (isset($record)){
             $expNum = explode('-', $record->code_transaction);
             //increase 1 with last invoice number
-            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1] .'-'. $expNum[2]+1;
+            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1] .'-'. ($expNum[2]+'1');
         } else {
-            $nextInvoiceNumber = 'INV' . '-' . date('dmy') .'-0001';
+            $nextInvoiceNumber = 'INV' . '-' . date('dmy') .'-10001';
         }
+
         $transaction = Transaction::create([
             'code_transaction' => $nextInvoiceNumber,
-            'total_price' => request('nominal'),
+            'nominal' => request('nominal'),
             'payment_status' => 1,
             'donation_id' => $donation->id,
+            'user_id' => auth()->user() ? auth()->user()->id : '',
             'name' => request('name'),
             'phone_number' => request('phone_number'),
         ]);
@@ -78,8 +73,8 @@ class OrderController extends Controller
             $midtrans = new CreateSnapTokenService($transaction);
             $snapToken = $midtrans->getSnapToken();
 
-            // $transaction->snap_token = $snapToken;
-            // $transaction->save();
+            $transaction->snap_token = $snapToken;
+            $transaction->save();
         }
         return view('proccess_transaction', compact('transaction', 'snapToken'));
     }
