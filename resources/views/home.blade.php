@@ -8,7 +8,7 @@
 </head>
 <body>
     @foreach ($transactions as $transaction)
-    <li>{{ $loop->iteration }} :<a href="{{ route('transaction.process', $transaction->id) }}">{{ $transaction->code_transaction }}</a></li>
+    <li>{{ $loop->iteration }} :<a href="{{ route('transaction.process', $transaction->id) }}">{{ $transaction->code_transaction }}</a> | status : {{ $transaction->payment_status }}</li>
     @endforeach
 </body>
 </html>

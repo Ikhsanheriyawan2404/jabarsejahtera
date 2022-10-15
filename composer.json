@@ -15,7 +15,8 @@
         "laravel/framework": "^7.29",
         "laravel/passport": "~9.0",
         "laravel/tinker": "^2.5",
-        "midtrans/midtrans-php": "^2.5"
+        "midtrans/midtrans-php": "^2.5",
+        "ramsey/uuid": "^4.2"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

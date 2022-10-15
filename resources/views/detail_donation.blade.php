@@ -11,7 +11,7 @@
     DEskrispi {{ $donation->description }} <br>
     TOatal dana {{ $donation->total_budget }} <br>
 
-    <a id="pay-button" href="{{ route('donation.form', $donation->id) }}">Pay!</a>
+    <a id="pay-button" href="{{ route('transaction.store', $donation->id) }}">Pay!</a>
 
 
 </body>
