@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Donation;
-use App\Transaction;
+use App\{Transaction, Donation};
 use App\Services\Midtrans\CreateSnapTokenService;
 
 class OrderController extends Controller
@@ -61,7 +60,16 @@ class OrderController extends Controller
             'phone_number' => request('phone_number'),
         ]);
 
-        return redirect()->route('transaction.process', $transaction->id);
+        $snapToken = $transaction->snap_token;
+        if (is_null($snapToken)) {
+            // Jika snap token masih NULL, buat token snap dan simpan ke database
+
+            $midtrans = new CreateSnapTokenService($transaction);
+            $snapToken = $midtrans->getSnapToken();
+
+            $transaction->snap_token = $snapToken;
+            $transaction->save();
+        }
     }
 
     public function proccess_transaction(Transaction $transaction)
