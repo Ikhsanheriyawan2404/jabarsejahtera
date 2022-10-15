@@ -6,7 +6,6 @@ use App\Donation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use App\Http\Resources\DonationResource;
-use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller
 {
@@ -16,12 +15,13 @@ class DonationController extends Controller
         return new DonationResource(true, 'List Donation', $donations);
     }
 
-    public function show(Donation $donation)
+    public function show($id)
     {
-        if (!$donation) {
-            return new DonationResource(false, 'Data tidak ditemukan');
+        $donation = Donation::find($id);
+        if ($donation) {
+            return new DonationResource(true, 'Details donation', $donation);
         }
-        return new DonationResource(true, 'Details donation', $donation);
+        return response()->json(new DonationResource(false, 'Donasi tidak ditemukan'), 404);
     }
 
     public function store(DonationRequest $request)
