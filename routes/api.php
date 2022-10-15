@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\V1\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('API\V1')->group(function () {
@@ -22,7 +21,8 @@ Route::namespace('API\V1')->group(function () {
 
                 Route::post('events', 'EventController@store');
                 Route::put('events/{event}', 'EventController@update');
-                Route::delete('events/{event}', 'EventController@destroy');
+                Route::delete('events/{id}', 'EventController@destroy');
+
                 Route::delete('users/{user}', 'UserController@destroy');
             });
 

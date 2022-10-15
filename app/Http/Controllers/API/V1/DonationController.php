@@ -40,8 +40,7 @@ class DonationController extends Controller
 
     public function update(DonationRequest $request, Donation $donation)
     {
-        // $request->validated();
-        dd('fdas');
+        $request->validated();
 
         $donation->update([
             'title' => request('title'),
