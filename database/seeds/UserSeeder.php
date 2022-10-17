@@ -38,7 +38,8 @@ class UserSeeder extends Seeder
 
             UserDetail::create([
                 'id' => $user->id,
-                'phone_number' => $faker->name,
+                'phone_number' => $faker->phoneNumber(),
+                'security_question' => $faker->name(),
             ]);
         }
 

@@ -11,7 +11,7 @@ class DonationController extends Controller
 {
     public function index()
     {
-        $donations = Donation::latest()->get();
+        $donations = Donation::latest()->paginate(10);
         return new DonationResource(true, 'List Donation', $donations);
     }
 
@@ -29,6 +29,13 @@ class DonationController extends Controller
         $request->validated();
 
         $donation = Donation::create([
+            'title' => request('title'),
+            'total_budget' => request('total_budget'),
+            'category' => request('category'),
+            'description' => request('description'),
+        ]);
+
+        DB::table('donations')->insert([
             'title' => request('title'),
             'total_budget' => request('total_budget'),
             'category' => request('category'),

@@ -42,7 +42,8 @@ class EventController extends Controller
 
     public function update($id, EventUpdateRequest $request)
     {
-        $validated = $request->validated();
+        dd('fdsfdaf');
+        $request->validated();
         $event = Event::find($id);
         if (!$event) {
             return response()->json(new ApiResource(false, 'Data tidak ditemukan', $event), 404);
@@ -54,7 +55,14 @@ class EventController extends Controller
             $image = $event->image;
         }
 
-        $event->update(request()->all());
+        $event->update([
+            'title' => request('title'),
+            'description' => request('description'),
+            'organizer' => request('organizer'),
+            'date' => request('date'),
+            'location' => request('location'),
+            'image' => $image,
+        ]);
 
         return new ApiResource(true, 'Event berhasil diedit', $event);
     }

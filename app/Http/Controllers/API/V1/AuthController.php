@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\{UserDetail, User};
+use Laravel\Passport\Token;
 use Illuminate\Support\Facades\DB;
+use Laravel\Passport\RefreshToken;
+use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
-use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -24,12 +27,13 @@ class AuthController extends Controller
                 UserDetail::create([
                     'id' => $user->id,
                     'phone_number' => request('phone_number'),
+                    'security_question' => request('security_question'),
                 ]);
             });
         } catch (\Exception $e) {
-            return new UserResource(false, 'Error', $e);
+            return new ApiResource(false, 'Error', $e);
         }
-        return new UserResource(true, 'Berhasil registrasi user.', null);
+        return new ApiResource(true, 'Berhasil registrasi user.', null);
     }
 
     public function login()
@@ -37,7 +41,6 @@ class AuthController extends Controller
         $this->validate(request(), [
             'email' => 'required',
             'password' => 'required|min:8',
-            // 'confirmed' => 'required|min:8',
         ]);
 
         $data = [
@@ -46,7 +49,7 @@ class AuthController extends Controller
         ];
 
         if (!auth()->attempt($data)) {
-            return new UserResource(false, 'Username / password tidak cook', null);
+            return new ApiResource(false, 'Username / password tidak cocok', null);
         }
 
         $token = auth()->user()->createToken('token')->accessToken;
@@ -55,7 +58,7 @@ class AuthController extends Controller
             'token' => $token,
             'user' => auth()->user(),
         ];
-        return new UserResource(true, 'Berhasil login.', $data);
+        return new ApiResource(true, 'Berhasil login.', $data);
     }
 
     public function logout()
@@ -65,7 +68,6 @@ class AuthController extends Controller
                 $token->delete();
             });
         }
-
-        return new UserResource(true, 'Berhasil logout.');
+        return new ApiResource(true, 'Berhasil logout.');
     }
 }
