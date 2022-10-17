@@ -21,11 +21,23 @@ class UserSeeder extends Seeder
             'password' => password_hash('admin123', PASSWORD_DEFAULT),
         ]);
 
+        UserDetail::create([
+            'id' => $user->id,
+            'phone_number' => '08212837232',
+            'security_question' => 'fdsafsd',
+        ]);
+
         $user = User::create([
             'name' => 'Ikhsan Kuncoro',
             'email' => 'ikhsan24@gmail.com',
             'role' => '0',
             'password' => password_hash('admin123', PASSWORD_DEFAULT),
+        ]);
+
+        UserDetail::create([
+            'id' => $user->id,
+            'phone_number' => '08212837232',
+            'security_question' => 'fdsafsd',
         ]);
 
         $faker = Factory::create();
