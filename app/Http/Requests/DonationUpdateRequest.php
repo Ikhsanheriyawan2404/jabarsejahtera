@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DonationRequest extends FormRequest
+class DonationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class DonationRequest extends FormRequest
             'total_budget' => 'required',
             'description' => 'required',
             'category' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2058',
+            'image' => 'image|mimes:jpg,jpeg,png|max:2058',
         ];
     }
 }

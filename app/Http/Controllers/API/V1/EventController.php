@@ -42,7 +42,6 @@ class EventController extends Controller
 
     public function update($id, EventUpdateRequest $request)
     {
-        dd('fdsfdaf');
         $request->validated();
         $event = Event::find($id);
         if (!$event) {

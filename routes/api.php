@@ -29,7 +29,7 @@ Route::namespace('API\V1')->group(function () {
 
                 Route::post('events', 'EventController@store');
                 Route::put('events/{id}', 'EventController@update');
-                Route::delete('events/{id}', 'EventController@destroy');
+                Route::delete('events/{event}', 'EventController@destroy');
 
                 Route::get('users', 'UserController@index');
                 Route::delete('users/{user}', 'UserController@destroy');
