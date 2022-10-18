@@ -18,7 +18,7 @@ class CreateDonationsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('total_budget', 15, 2);
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->enum('category', ['Bencana Alam', 'Yatim Piatu', 'Disabilitas']);
             $table->timestamps();
         });

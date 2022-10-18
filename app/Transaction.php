@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use Uuid;
 
-    protected $fillable = ['code_transaction', 'donation_id','nominal', 'payment_status', 'snap_token', 'name', 'phone_number'];
+    protected $fillable = ['code_transaction', 'donation_id','nominal', 'payment_status', 'snap_token', 'name', 'phone_number', 'user_id'];
 
     public function user()
     {
