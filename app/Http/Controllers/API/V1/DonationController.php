@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Donation;
-use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;

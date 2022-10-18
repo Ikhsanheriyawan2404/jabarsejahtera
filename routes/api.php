@@ -9,15 +9,20 @@ Route::namespace('API\V1')->group(function () {
         Route::post('register', 'AuthController@register');
 
         /** Transactions */
-        Route::post('transactions/{donation}', 'TransactionController@store');
-        // Route::post('transactions/{transaction}', 'TransactionController@store');
+        Route::post('donations/transactions/{donation}', 'TransactionController@donation');
+        Route::post('zakat/transactions', 'TransactionController@zakat');
+
+        // Donations Events Lists and Get Details
         Route::get('donations', 'DonationController@index');
         Route::get('donations/{id}', 'DonationController@show');
         Route::get('events', 'EventController@index');
         Route::get('events/{id}', 'EventController@show');
 
         Route::middleware('auth:api')->group(function () {
+            /** Logout */
             Route::post('logout', 'AuthController@logout');
+
+            /** User Module */
             Route::get('users/{id}', 'UserController@show');
             Route::put('users/{id}', 'UserController@update');
 
