@@ -11,10 +11,11 @@ Route::namespace('API\V1')->group(function () {
         /** Transactions */
         Route::post('donations/transactions/{donation}', 'TransactionController@donation');
         Route::post('zakat/transactions', 'TransactionController@zakat');
+        Route::get('transactions', 'TransactionController@getTransactions');
 
         // Donations Events Lists and Get Details
         Route::get('donations', 'DonationController@index');
-        Route::get('donations/{id}', 'DonationController@show');
+        Route::get('donations/{donation}', 'DonationController@show');
         Route::get('events', 'EventController@index');
         Route::get('events/{id}', 'EventController@show');
 

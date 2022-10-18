@@ -12,17 +12,15 @@ class DonationController extends Controller
 {
     public function index()
     {
-        $donations = Donation::latest()->paginate(10);
-        return new ApiResource(true, 'List Donation', $donations);
+        $title = request('title');
+        $category = request('category');
+        return new ApiResource(true, 'List Donation', Donation::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->paginate(10));
     }
 
-    public function show($id)
+    public function show(Donation $donation)
     {
-        $donation = Donation::find($id);
-        if ($donation) {
-            return new ApiResource(true, 'Details donation', $donation);
-        }
-        return response()->json(new ApiResource(false, 'Donasi tidak ditemukan'), 404);
+        return new ApiResource(true, 'Details donation', $donation);
+        // return response()->json(new ApiResource(false, 'Donasi tidak ditemukan'), 404);
     }
 
     public function store(DonationRequest $request)

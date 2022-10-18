@@ -9,6 +9,11 @@ use App\Services\Midtrans\CreateSnapTokenService;
 
 class TransactionController extends Controller
 {
+    public function getTransactions()
+    {
+        return new ApiResource(true, 'List Transactions', Transaction::latest()->paginate(10));
+    }
+
     public function donation(Donation $donation)
     {
         $this->validate(request(), [
@@ -87,6 +92,4 @@ class TransactionController extends Controller
 
         return new ApiResource(true, 'Transaksi berhasil dibuat.', $transaction);
     }
-
-    public function
 }
