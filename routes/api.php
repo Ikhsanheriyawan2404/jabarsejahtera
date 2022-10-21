@@ -11,7 +11,10 @@ Route::namespace('API\V1')->group(function () {
         /** Transactions */
         Route::post('donations/transactions/{donation}', 'TransactionController@donation');
         Route::post('zakat/transactions', 'TransactionController@zakat');
+
+        /** Get Transactions Record */
         Route::get('transactions', 'TransactionController@getTransactions');
+        Route::get('reports/{donation}', 'ReportController@show');
 
         // Donations Events Lists and Get Details
         Route::get('donations', 'DonationController@index');
@@ -39,6 +42,9 @@ Route::namespace('API\V1')->group(function () {
 
                 Route::get('users', 'UserController@index');
                 Route::delete('users/{user}', 'UserController@destroy');
+
+                /** Expends Report */
+                Route::post('reports/{donation}', 'ReportController@store');
             });
         });
     });

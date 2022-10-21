@@ -19,7 +19,7 @@ class DonationSeeder extends Seeder
             Donation::create([
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
-                'total_budget' => $faker->randomDigitNotNull,
+                'total_budget' => rand(100000, 10000000),
                 'image' => 'img/donations/default.jpg',
                 'category' => $category[array_rand($category)]
             ]);

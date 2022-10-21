@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\ApiResource;
 use Closure;
-use App\Http\Resources\UserResource;
 
 class IsAdmin
 {
@@ -20,6 +20,6 @@ class IsAdmin
             return $next($request);
         }
 
-        return response()->json(new UserResource(false, 'Anda tidak memiliki akses'), 403);
+        return response()->json(new ApiResource(false, 'Anda tidak memiliki akses'), 403);
     }
 }

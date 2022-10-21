@@ -14,13 +14,17 @@ class DonationController extends Controller
     {
         $title = request('title');
         $category = request('category');
-        return new ApiResource(true, 'List Donation', Donation::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->paginate(10));
+        return new ApiResource(true, 'List Donation', Donation::with('transactions')->where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->paginate(10));
     }
 
-    public function show(Donation $donation)
+    public function show($id)
     {
-        return new ApiResource(true, 'Details donation', $donation);
-        // return response()->json(new ApiResource(false, 'Donasi tidak ditemukan'), 404);
+        $donation = Donation::with('transactions')->find($id);
+        if ($donation) {
+            return new ApiResource(true, 'Details donation', $donation);
+        }
+        return response()->json(new ApiResource(false, 'Donasi tidak ditemukan', $donation), 404);
+
     }
 
     public function store(DonationRequest $request)
