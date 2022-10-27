@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 
 class Donation extends Model
@@ -23,5 +24,10 @@ class Donation extends Model
     public function getTotalCollectedAttribute()
     {
         return Transaction::where('id', $this->id)->sum('nominal');
+    }
+
+    public function getImageAttribute($value)
+    {
+        return URL::to('/') . '/storage/' . $value;
     }
 }

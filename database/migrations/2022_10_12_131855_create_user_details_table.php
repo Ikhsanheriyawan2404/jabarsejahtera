@@ -17,7 +17,7 @@ class CreateUserDetailsTable extends Migration
             $table->unsignedBigInteger('id');
             $table->string('phone_number');
             $table->string('security_question');
-            $table->string('image')->nullable()->default('default.jpg');
+            $table->string('image')->nullable()->default('img/default.jpg');
             $table->timestamps();
 
             $table->foreign('id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');

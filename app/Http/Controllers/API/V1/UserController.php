@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::with('user_detail')->find($id);
         if ($user) {
             return new ApiResource(true, 'Users', $user);
         }

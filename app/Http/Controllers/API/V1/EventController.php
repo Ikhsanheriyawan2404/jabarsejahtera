@@ -14,7 +14,7 @@ class EventController extends Controller
     {
         $title = request('title');
         $category = request('category');
-        return new ApiResource(true, 'List Events', Event::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->paginate(10));
+        return new ApiResource(true, 'List Events', Event::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get());
     }
 
     public function show($id)

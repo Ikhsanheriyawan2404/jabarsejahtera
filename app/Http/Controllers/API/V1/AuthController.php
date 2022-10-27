@@ -10,6 +10,7 @@ use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,7 @@ class AuthController extends Controller
                     'id' => $user->id,
                     'phone_number' => request('phone_number'),
                     'security_question' => request('security_question'),
+                    'image' => request()->file('image')->store('img/users')
                 ]);
             });
         } catch (\Exception $e) {
@@ -40,7 +42,7 @@ class AuthController extends Controller
     {
         $this->validate(request(), [
             'email' => 'required',
-            'password' => 'required|min:8',
+            'password' => 'required',
         ]);
 
         $data = [
@@ -49,9 +51,18 @@ class AuthController extends Controller
         ];
 
         if (!auth()->attempt($data)) {
-            return new ApiResource(false, 'Username / password tidak cocok', null);
+            return response()->json(new ApiResource(false, 'Username / password tidak cocok', null), 401);
         }
 
+
+
+        if(Auth::check()){
+            auth()->user()->tokens->each(function($token, $key) {
+                $token->delete();auth()->user()->tokens->each(function($token, $key) {
+                    $token->delete();
+                });
+            });
+        };
         $token = auth()->user()->createToken('token')->accessToken;
 
         $data = [

@@ -20,7 +20,7 @@ class DonationSeeder extends Seeder
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'total_budget' => rand(100000, 10000000),
-                'image' => 'img/donations/default.jpg',
+                'image' => 'img/default.jpg',
                 'category' => $category[array_rand($category)]
             ]);
         }
