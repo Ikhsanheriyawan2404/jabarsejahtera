@@ -26,7 +26,7 @@ class AuthController extends Controller
                     'id' => $user->id,
                     'phone_number' => request('phone_number'),
                     'security_question' => request('security_question'),
-                    'image' => request()->file('image')->store('img/users')
+                    // 'image' => request()->file('image')->store('img/users')
                 ]);
             });
         } catch (\Exception $e) {
