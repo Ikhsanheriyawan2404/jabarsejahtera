@@ -19,7 +19,7 @@ class CreateDonationsTable extends Migration
             $table->text('description');
             $table->decimal('total_budget', 15, 2);
             $table->string('image');
-            $table->enum('category', ['Bencana Alam', 'Yatim Piatu', 'Disabilitas']);
+            $table->enum('category', ['Bencana Alam', 'Yatim Piatu', 'Disabilitas', 'Kaum Dhuafa', 'Kegiatan Sosial', 'Lingkungan', 'Infrastruktur', 'Bantuan Medis']);
             $table->timestamps();
         });
     }

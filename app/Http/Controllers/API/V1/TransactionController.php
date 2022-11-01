@@ -11,7 +11,7 @@ class TransactionController extends Controller
 {
     public function getTransactions()
     {
-        return new ApiResource(true, 'List Transactions', Transaction::latest()->paginate(10));
+        return new ApiResource(true, 'List Transactions', Transaction::latest()->get());
     }
 
     public function donation(Donation $donation)

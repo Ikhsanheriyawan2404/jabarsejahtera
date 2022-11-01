@@ -11,9 +11,10 @@ class Donation extends Model
     protected $appends = ['total_collected'];
 
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-        'updated_at' => 'datetime:Y-m-d',
+        'created_at' => 'datetime:d-m-Y',
     ];
+
+    protected $hidden = ['updated_at'];
 
     public function transactions()
     {

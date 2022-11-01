@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\{UserDetail, User};
-use Laravel\Passport\Token;
 use Illuminate\Support\Facades\DB;
-use Laravel\Passport\RefreshToken;
 use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
-use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -33,16 +30,16 @@ class AuthController extends Controller
                 ]);
             });
         } catch (\Exception $e) {
-            return new ApiResource(false, 'Error', $e);
+            return response()->json(new ApiResource(false, 'Error', $e), 400);
         }
         return new ApiResource(true, 'Berhasil registrasi user.', null);
     }
 
     public function login()
     {
-        $this->validate(request(), [
-            'email' => 'required',
-            'password' => 'required',
+        request()->validate([
+            'email'=> 'required',
+            'password'=> 'required',
         ]);
 
         $data = [
@@ -54,15 +51,12 @@ class AuthController extends Controller
             return response()->json(new ApiResource(false, 'Username / password tidak cocok', null), 401);
         }
 
-
-
         if(Auth::check()){
             auth()->user()->tokens->each(function($token, $key) {
-                $token->delete();auth()->user()->tokens->each(function($token, $key) {
-                    $token->delete();
-                });
+                $token->delete();
             });
         };
+
         $token = auth()->user()->createToken('token')->accessToken;
 
         $data = [

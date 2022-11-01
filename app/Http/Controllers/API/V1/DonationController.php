@@ -14,8 +14,7 @@ class DonationController extends Controller
     {
         $title = request('title');
         $category = request('category');
-        // return new ApiResource(true, 'List Donation', Donation::with('transactions')->where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get());
-        return response()->json(Donation::with('transactions')->where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->paginate(), 200);
+        return new ApiResource(true, 'List Donation', Donation::with('transactions')->where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get());
     }
 
     public function show($id)
@@ -68,7 +67,7 @@ class DonationController extends Controller
     public function destroy(Donation $donation)
     {
         $donation->delete();
-        return new ApiResource(true, 'Data berhasil dihapus', null);
+        return new ApiResource(true, 'Data berhasil dihapus');
     }
 
 }
