@@ -6,6 +6,7 @@ use App\{User, UserDetail};
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
@@ -30,7 +31,16 @@ class UserController extends Controller
         $user = User::find($id);
         if (auth()->user()->id == $id) {
             try {
-                DB::transaction(function () use ($user, $id) {
+                if (request('image')) {
+                    if($user->user_detail->image !== 'img/default.jpg') {
+                        Storage::delete($user->user_detail->image);
+                    }
+                    $image = request()->file('image')->store('img/users');
+                } else {
+                    $image = $user->user_detail->image;
+                }
+
+                DB::transaction(function () use ($user, $id, $image) {
                     $user->update([
                         'name' => request('name'),
                         'email' => request('email'),
@@ -40,6 +50,7 @@ class UserController extends Controller
                         ->update([
                         'phone_number' => request('phone_number'),
                         'security_question' => request('security_question'),
+                        'image' => $image,
                     ]);
                 });
             } catch (\Exception $e) {
