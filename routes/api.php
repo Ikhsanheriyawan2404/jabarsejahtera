@@ -22,6 +22,9 @@ Route::namespace('API\V1')->group(function () {
         Route::get('events', 'EventController@index');
         Route::get('events/{id}', 'EventController@show');
 
+        // Callback Midtrans
+        Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
+
         Route::middleware('auth:api')->group(function () {
             /** Logout */
             Route::post('logout', 'AuthController@logout');

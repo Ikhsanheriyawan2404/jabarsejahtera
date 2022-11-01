@@ -12,12 +12,22 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        // Transaction::create([
-        //     'code_transaction' => 'INV-101001-0001',
-        //     'total_price' => 0,
-        //     'payment_status' => 1,
-        //     'name' => 'Ikhsan Heiryaw',
-        //     'phone_number' => '083293932',
-        // ]);
+        $record = Transaction::latest()->first();
+        if (isset($record)){
+            $expNum = explode('-', $record->code_transaction);
+            $nextInvoiceNumber = $expNum[0].'-'. 'DNS' .'-'. $expNum[2] . '-' . ($expNum[3]+'1');
+        } else {
+            $nextInvoiceNumber = 'INV-DNS-' . date('dm') .'-10001';
+        }
+
+        Transaction::create([
+            'code_transaction' => $nextInvoiceNumber,
+            'nominal' => request('nominal'),
+            'payment_status' => 1,
+            'donation_id' => 1,
+            'user_id' => auth('api')->user() ? auth('api')->user()->id : null,
+            'name' => auth('api')->user() ? auth('api')->user()->name : request('name'),
+            'phone_number' => auth('api')->user() ? auth('api')->user()->user_detail->phone_number : request('phone_number'),
+        ]);
     }
 }

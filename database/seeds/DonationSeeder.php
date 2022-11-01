@@ -13,6 +13,14 @@ class DonationSeeder extends Seeder
      */
     public function run()
     {
+        Donation::create([
+            'title' => 'Ikhsan Heriyawan',
+            'description' => 'sdfdasf',
+            'total_budget' => '100000',
+            'image' => 'img/default.jpg',
+            'category' => 'Disabilitas'
+        ]);
+
         $category = ['Bencana Alam', 'Yatim Piatu', 'Disabilitas', 'Kaum Dhuafa', 'Kegiatan Sosial', 'Lingkungan', 'Infrastruktur', 'Bantuan Medis'];
         $faker = Factory::create();
         for($i = 0; $i < 30; $i++) {

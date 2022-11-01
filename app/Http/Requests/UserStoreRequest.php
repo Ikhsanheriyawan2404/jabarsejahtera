@@ -25,10 +25,10 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required|unique:users|email',
             'password' => 'required|confirmed|min:6',
             'password_confirmation' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|numeric',
             'security_question' => 'required',
             // 'image' => 'required|image|mimes:jpeg,png,jpg',
         ];
