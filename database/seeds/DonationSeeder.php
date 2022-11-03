@@ -18,7 +18,8 @@ class DonationSeeder extends Seeder
             'description' => 'sdfdasf',
             'total_budget' => '100000',
             'image' => 'img/default.jpg',
-            'category' => 'Disabilitas'
+            'category' => 'Disabilitas',
+            'location' => 'Cirebon'
         ]);
 
         $category = ['Bencana Alam', 'Yatim Piatu', 'Disabilitas', 'Kaum Dhuafa', 'Kegiatan Sosial', 'Lingkungan', 'Infrastruktur', 'Bantuan Medis'];
@@ -27,7 +28,8 @@ class DonationSeeder extends Seeder
             Donation::create([
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
-                'total_budget' => rand(100000, 10000000),
+                'location' => 'kontoljaran',
+                'total_budget' => rand(1000000, 10000000),
                 'image' => 'img/default.jpg',
                 'category' => $category[array_rand($category)]
             ]);

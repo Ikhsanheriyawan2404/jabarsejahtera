@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DonationSeeder::class,
             EventSeeder::class,
-            // TransactionSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }

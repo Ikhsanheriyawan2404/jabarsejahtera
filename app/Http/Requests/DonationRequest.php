@@ -28,6 +28,7 @@ class DonationRequest extends FormRequest
             'total_budget' => 'required',
             'description' => 'required',
             'category' => 'required',
+            'location' => 'required',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2058',
         ];
     }

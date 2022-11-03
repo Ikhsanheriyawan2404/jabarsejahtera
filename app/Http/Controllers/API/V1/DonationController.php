@@ -14,13 +14,20 @@ class DonationController extends Controller
     {
         $title = request('title');
         $category = request('category');
-        return new ApiResource(true, 'List Donation', Donation::with('transactions')->where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get());
+        $donations = Donation::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get();
+
+        foreach ($donations as $donation) {
+            $donation->image = $donation->image_path;
+        }
+
+        return new ApiResource(true, 'List Donation', $donations);
     }
 
     public function show($id)
     {
         $donation = Donation::with('transactions')->find($id);
         if ($donation) {
+            $donation->image = $donation->image_path;
             return new ApiResource(true, 'Details donation', $donation);
         }
         return response()->json(new ApiResource(false, 'Donasi tidak ditemukan', $donation), 404);
@@ -36,9 +43,11 @@ class DonationController extends Controller
             'total_budget' => request('total_budget'),
             'category' => request('category'),
             'description' => request('description'),
+            'location' => request('location'),
             'image' => request()->file('image')->store('img/donations'),
         ]);
 
+        $donation->image = $donation->image_path;
         return new ApiResource(true, 'Donasi Berhasil Ditambahkan', $donation);
     }
 
@@ -47,7 +56,9 @@ class DonationController extends Controller
         $request->validated();
 
         if (request('image')) {
-            Storage::delete($donation->image);
+            if ($donation->image !== 'img/default') {
+                Storage::delete($donation->image);
+            }
             $image = request()->file('image')->store('img/donations');
         } else {
             $image = $donation->image;
@@ -58,6 +69,7 @@ class DonationController extends Controller
             'total_budget' => request('total_budget'),
             'category' => request('category'),
             'description' => request('description'),
+            'location' => request('location'),
             'image' => $image,
         ]);
 
@@ -67,6 +79,7 @@ class DonationController extends Controller
     public function destroy(Donation $donation)
     {
         $donation->delete();
+        Storage::delete($donation->image);
         return new ApiResource(true, 'Data berhasil dihapus');
     }
 

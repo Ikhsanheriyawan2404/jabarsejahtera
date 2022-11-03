@@ -18,6 +18,6 @@ class Transaction extends Model
 
     public function donation()
     {
-        return $this->belongsTo(Donation::class, 'konyol-IF');
+        return $this->belongsTo(Donation::class);
     }
 }

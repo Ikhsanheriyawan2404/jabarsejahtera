@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Factory;
 use App\Transaction;
 use Illuminate\Database\Seeder;
 
@@ -12,22 +13,26 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        $record = Transaction::latest()->first();
-        if (isset($record)){
-            $expNum = explode('-', $record->code_transaction);
-            $nextInvoiceNumber = $expNum[0].'-'. 'DNS' .'-'. $expNum[2] . '-' . ($expNum[3]+'1');
-        } else {
-            $nextInvoiceNumber = 'INV-DNS-' . date('dm') .'-10001';
-        }
 
-        Transaction::create([
-            'code_transaction' => $nextInvoiceNumber,
-            'nominal' => request('nominal'),
-            'payment_status' => 1,
-            'donation_id' => 1,
-            'user_id' => auth('api')->user() ? auth('api')->user()->id : null,
-            'name' => auth('api')->user() ? auth('api')->user()->name : request('name'),
-            'phone_number' => auth('api')->user() ? auth('api')->user()->user_detail->phone_number : request('phone_number'),
-        ]);
+        $nominal = [20000, 50000, 10000, 100000, 30000];
+        $faker = Factory::create();
+        for($i = 0; $i < 1000; $i++) {
+            // $record = Transaction::latest()->first();
+            // if (isset($record)){
+            //     $expNum = explode('-', $record->code_transaction);
+            //     $nextInvoiceNumber = $expNum[0].'-'. 'DNS' .'-'. $expNum[2] . '-' . ($expNum[3]+'1');
+            // } else {
+            //     $nextInvoiceNumber = 'INV-DNS-' . date('dm') .'-10001';
+            // }
+            Transaction::create([
+                // 'code_transaction' => $nextInvoiceNumber,
+                'nominal' => $nominal[array_rand($nominal)],
+                'payment_status' => 2,
+                'donation_id' => rand(1,30),
+                'user_id' => null,
+                'name' => $faker->name,
+                'phone_number' => $faker->phoneNumber,
+            ]);
+        }
     }
 }

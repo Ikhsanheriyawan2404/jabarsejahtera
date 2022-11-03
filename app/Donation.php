@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donation extends Model
 {
-    protected $fillable = ['title', 'image', 'description', 'total_budget', 'category'];
+    protected $fillable = ['title', 'image', 'description', 'total_budget', 'category', 'location'];
     protected $appends = ['total_collected'];
 
     protected $casts = [
@@ -24,11 +24,11 @@ class Donation extends Model
 
     public function getTotalCollectedAttribute()
     {
-        return Transaction::where('id', $this->id)->sum('nominal');
+        return Transaction::where('payment_status', 2)->where('donation_id', $this->id)->sum('nominal');
     }
 
-    public function getImageAttribute($value)
+    public function getImagePathAttribute()
     {
-        return URL::to('/') . '/storage/' . $value;
+        return URL::to('/') . '/storage/' . $this->image;
     }
 }
