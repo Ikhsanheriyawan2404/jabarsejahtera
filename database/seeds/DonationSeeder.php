@@ -16,7 +16,7 @@ class DonationSeeder extends Seeder
         Donation::create([
             'title' => 'Ikhsan Heriyawan',
             'description' => 'sdfdasf',
-            'total_budget' => '100000',
+            'total_budget' => 100000,
             'image' => 'img/default.jpg',
             'category' => 'Disabilitas',
             'location' => 'Cirebon'
@@ -29,7 +29,7 @@ class DonationSeeder extends Seeder
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'location' => 'kontoljaran',
-                'total_budget' => rand(1000000, 10000000),
+                'total_budget' => (int)rand(1000000, 10000000),
                 'image' => 'img/default.jpg',
                 'category' => $category[array_rand($category)]
             ]);

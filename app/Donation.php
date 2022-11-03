@@ -24,7 +24,7 @@ class Donation extends Model
 
     public function getTotalCollectedAttribute()
     {
-        return Transaction::where('payment_status', 2)->where('donation_id', $this->id)->sum('nominal');
+        return (int)Transaction::where('payment_status', 2)->where('donation_id', $this->id)->sum('nominal');
     }
 
     public function getImagePathAttribute()

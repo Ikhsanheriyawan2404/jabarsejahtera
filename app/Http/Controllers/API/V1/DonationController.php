@@ -18,6 +18,7 @@ class DonationController extends Controller
 
         foreach ($donations as $donation) {
             $donation->image = $donation->image_path;
+            $donation->total_budget = (int)$donation->total_budget;
         }
 
         return new ApiResource(true, 'List Donation', $donations);
@@ -40,7 +41,7 @@ class DonationController extends Controller
 
         $donation = Donation::create([
             'title' => request('title'),
-            'total_budget' => request('total_budget'),
+            'total_budget' => (int)request('total_budget'),
             'category' => request('category'),
             'description' => request('description'),
             'location' => request('location'),

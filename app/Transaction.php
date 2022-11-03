@@ -20,4 +20,13 @@ class Transaction extends Model
     {
         return $this->belongsTo(Donation::class);
     }
+
+    // public function setNominalAttribute($nominal) {
+    //     $this->attributes['nominal'] = (int)$nominal;
+    // }
+
+    public function getNominalAttribute($value)
+    {
+        return (int)$value;
+    }
 }

@@ -26,7 +26,7 @@ class TransactionSeeder extends Seeder
             // }
             Transaction::create([
                 // 'code_transaction' => $nextInvoiceNumber,
-                'nominal' => $nominal[array_rand($nominal)],
+                'nominal' => (int)$nominal[array_rand($nominal)],
                 'payment_status' => 2,
                 'donation_id' => rand(1,30),
                 'user_id' => null,
