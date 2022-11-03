@@ -19,6 +19,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::with('user_detail')->find($id);
+        $user->user_detail->image = $user->user_detail->image_path;
         if ($user) {
             return new ApiResource(true, 'Users', $user);
         }
@@ -27,11 +28,11 @@ class UserController extends Controller
 
     public function update($id, UserUpdateRequest $request)
     {
-        $request->validated();
-        $user = User::find($id);
         if (auth()->user()->id == $id) {
+            $user = User::find($id);
+            $request->validated();
             try {
-                if (request('image')) {
+                if (request()->file('image')) {
                     if($user->user_detail->image !== 'img/default.jpg') {
                         Storage::delete($user->user_detail->image);
                     }
@@ -49,14 +50,15 @@ class UserController extends Controller
                     UserDetail::where('id', $id)
                         ->update([
                         'phone_number' => request('phone_number'),
-                        'security_question' => request('security_question'),
                         'image' => $image,
                     ]);
                 });
+
             } catch (\Exception $e) {
                 return new ApiResource(false, 'Error', $e);
             }
-            return new ApiResource(true, 'Berhasil Update User', null);
+
+            return new ApiResource(true, 'Berhasil Update User');
         }
         return response()->json(new ApiResource(false, 'Gagal Update User', null), 403);
     }

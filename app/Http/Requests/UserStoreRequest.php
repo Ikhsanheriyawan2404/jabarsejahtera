@@ -30,7 +30,6 @@ class UserStoreRequest extends FormRequest
             'password_confirmation' => 'required',
             'phone_number' => 'required|numeric',
             'security_question' => 'required',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg',
         ];
     }
 }

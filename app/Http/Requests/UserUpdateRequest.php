@@ -24,10 +24,10 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'phone_number' => 'required',
-            'security_question' => 'required',
+            'name' => 'required|max:255',
+            'phone_number' => 'required|numeric',
             'email' => 'required|unique:users,email,' . $this->id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:2058',
         ];
     }
 }
