@@ -50,7 +50,9 @@ class EventController extends Controller
             return response()->json(new ApiResource(false, 'Data tidak ditemukan', $event), 404);
         }
         if (request('image')) {
-            Storage::delete($event->image);
+            if ($event->image !== 'img/default-banner.jpg') {
+                Storage::delete($event->image);
+            }
             $image = request()->file('image')->store('img/events');
         } else {
             $image = $event->image;

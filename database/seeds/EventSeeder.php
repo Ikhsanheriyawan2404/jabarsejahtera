@@ -18,11 +18,11 @@ class EventSeeder extends Seeder
         for($i = 0; $i < 1000; $i++) {
             Event::create([
                 'title' => $faker->sentence,
-                'organizer' => $faker->sentence,
+                'organizer' => $faker->name,
                 'date' => $faker->dateTime(),
-                'location' => $faker->sentence,
+                'location' => $faker->name,
                 'description' => $faker->paragraph,
-                'image' => 'img/default.jpg',
+                'image' => 'img/default-banner.jpg',
                 'category' => $category[array_rand($category)]
             ]);
         }

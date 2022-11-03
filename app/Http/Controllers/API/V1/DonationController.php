@@ -57,7 +57,7 @@ class DonationController extends Controller
         $request->validated();
 
         if (request('image')) {
-            if ($donation->image !== 'img/default') {
+            if ($donation->image !== 'img/default-banner.jpg') {
                 Storage::delete($donation->image);
             }
             $image = request()->file('image')->store('img/donations');
