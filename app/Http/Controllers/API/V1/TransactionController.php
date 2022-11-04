@@ -19,7 +19,7 @@ class TransactionController extends Controller
         $this->validate(request(), [
             'name' => 'required|max:255',
             'nominal' => 'required',
-            'phone_number' => 'required',
+            // 'phone_number' => 'required',
         ]);
 
         // $record = Transaction::with('donation')->latest()->first();
@@ -35,9 +35,9 @@ class TransactionController extends Controller
             'nominal' => request('nominal'),
             'payment_status' => 1,
             'donation_id' => $donation->id,
-            'user_id' => null,
+            'user_id' => auth('api')->user() ? auth('api')->user()->id : null,
             'name' => request('name'),
-            'phone_number' => request('phone_number'),
+            // 'phone_number' => request('phone_number'),
         ]);
 
         $snapToken = $transaction->snap_token;
@@ -59,7 +59,7 @@ class TransactionController extends Controller
         $this->validate(request(), [
             'name' => 'required|max:255',
             'nominal' => 'required',
-            'phone_number' => 'required',
+            // 'phone_number' => 'required',
         ]);
 
         $record = Transaction::with('donation')->latest()->first();
@@ -74,9 +74,9 @@ class TransactionController extends Controller
             'code_transaction' => $nextInvoiceNumber,
             'nominal' => request('nominal'),
             'payment_status' => 1,
-            'user_id' => auth('api')->user() ? auth('api')->user()->id : null,
-            'name' => auth('api')->user() ? auth('api')->user()->name : request('name'),
-            'phone_number' => auth('api')->user() ? auth('api')->user()->user_detail->phone_number : request('phone_number'),
+            'user_id' => auth('api')->user() ? auth('api')->user()->id  : null,
+            'name' => request('name'),
+            // 'phone_number' => auth('api')->user() ? auth('api')->user()->user_detail->phone_number : request('phone_number'),
         ]);
 
         $snapToken = $transaction->snap_token;

@@ -18,7 +18,7 @@
 
         <button id="pay-button" data-id="{{ $donation->id }}">Pay!</button>
 
-   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+   <script src="https://app.sa`ndbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
     <script>
         const payButton = document.querySelector('#pay-button');

@@ -11,6 +11,12 @@ class Transaction extends Model
 
     protected $fillable = ['code_transaction', 'donation_id','nominal', 'payment_status', 'snap_token', 'name', 'phone_number', 'user_id'];
 
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y',
+    ];
+
+    protected $hidden = ['updated_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
