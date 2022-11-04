@@ -62,16 +62,16 @@ class TransactionController extends Controller
             // 'phone_number' => 'required',
         ]);
 
-        $record = Transaction::with('donation')->latest()->first();
-        if (isset($record)){
-            $expNum = explode('-', $record->code_transaction);
-            $nextInvoiceNumber = $expNum[0].'-'. 'ZKT' .'-'. $expNum[2] . '-' . ($expNum[3]+'1');
-        } else {
-            $nextInvoiceNumber = 'INV-ZKT-' . date('dm') .'-10001';
-        }
+        // $record = Transaction::with('donation')->latest()->first();
+        // if (isset($record)){
+        //     $expNum = explode('-', $record->code_transaction);
+        //     $nextInvoiceNumber = $expNum[0].'-'. 'ZKT' .'-'. $expNum[2] . '-' . ($expNum[3]+'1');
+        // } else {
+        //     $nextInvoiceNumber = 'INV-ZKT-' . date('dm') .'-10001';
+        // }
 
         $transaction = Transaction::create([
-            'code_transaction' => $nextInvoiceNumber,
+            // 'code_transaction' => $nextInvoiceNumber,
             'nominal' => request('nominal'),
             'payment_status' => 1,
             'user_id' => auth('api')->user() ? auth('api')->user()->id  : null,
