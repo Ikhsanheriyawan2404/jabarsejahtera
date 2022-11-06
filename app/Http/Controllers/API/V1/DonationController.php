@@ -37,7 +37,9 @@ class DonationController extends Controller
         $donation = Donation::with('transactions')->find($id);
         if ($donation) {
             $donation->image = $donation->image_path;
-            return new ApiResource(true, 'Details donation', $donation);
+            return new ApiResource(true, 'Detai
+            image
+            unsplash-NuFUbftUu_s-unsplash.jpgls donation', $donation);
         }
         return response()->json(new ApiResource(false, 'Donasi tidak ditemukan', $donation), 404);
 
