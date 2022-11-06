@@ -7,6 +7,7 @@ use App\Http\Resources\ApiResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\PaginateResource;
 
 class DonationController extends Controller
 {
@@ -14,14 +15,21 @@ class DonationController extends Controller
     {
         $title = request('title');
         $category = request('category');
-        $donations = Donation::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->get();
+        $donations = Donation::where('category', 'like', "%$category%")->where('title', 'like', "%$title%")->latest()->skip(10)->take(10)->paginate(10);
+
+        // $offset = request()->has('offset') ? request()->get('offset') : 0;
+        // $limit = request()->has('limit') ? request()->get('limit') : 10;
+        // $donatons = Donation::limit($limit)->offset($offset)->get();
+        // $totalCount = $donations->count();
+        // $nextPage = url()->current() . '?offset=' . $offset * 2 . '&limit='.$limit;
+        // return new PaginateResource(true, 'List Donation', $donatons, $totalCount, $nextPage);
 
         foreach ($donations as $donation) {
             $donation->image = $donation->image_path;
             $donation->total_budget = (int)$donation->total_budget;
         }
 
-        return new ApiResource(true, 'List Donation', $donations);
+        return response()->json($donations, 200);
     }
 
     public function show($id)
