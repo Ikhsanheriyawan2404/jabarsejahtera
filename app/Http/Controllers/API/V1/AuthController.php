@@ -63,6 +63,7 @@ class AuthController extends Controller
             'token' => $token,
             'user' => auth()->user(),
         ];
+        
         return new ApiResource(true, 'Berhasil login.', $data);
     }
 

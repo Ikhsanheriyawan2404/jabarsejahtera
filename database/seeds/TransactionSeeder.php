@@ -34,5 +34,17 @@ class TransactionSeeder extends Seeder
                 // 'phone_number' => $faker->phoneNumber,
             ]);
         }
+
+        $nominal = [20000, 50000, 10000, 100000, 30000];
+        $faker = Factory::create();
+        for($i = 0; $i < 10; $i++) {
+            Transaction::create([
+                'nominal' => (int)$nominal[array_rand($nominal)],
+                'payment_status' => 2,
+                'user_id' => null,
+                'name' => $faker->name,
+                'created_at' => '2022-11-01',
+            ]);
+        }
     }
 }

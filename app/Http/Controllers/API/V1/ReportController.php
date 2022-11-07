@@ -11,17 +11,27 @@ class ReportController extends Controller
 {
     public function zakat()
     {
-        $start = Carbon::parse(request('start_date'))->format('Y-m-d');
-        $end = Carbon::parse(request('end_date'))->format('Y-m-d');
+        if (request('start_date') && request('end_date')) {
+            $start = Carbon::parse(request('start_date'))->format('Y-m-d');
+            $end = Carbon::parse(request('end_date'))->format('Y-m-d');
+        } else {
+            $start = Carbon::now()->subDays(6)->format('Y-m-d');
+            $end = Carbon::now()->format('Y-m-d');
+        }
 
         $zakat = Transaction::where('donation_id', NULL)->whereBetween('created_at', [$start, $end])->get();
-        return response()->json(new ApiResource(true, 'List Pemasukan Zakat ', $zakat), 200);
+        return response()->json(new ApiResource(true, 'List Pemasukan Zakat', $zakat), 200);
     }
 
     public function donation()
     {
-        $start = Carbon::parse(request('start_date'))->format('Y-m-d');
-        $end = Carbon::parse(request('end_date'))->format('Y-m-d');
+        if (request('start_date') && request('end_date')) {
+            $start = Carbon::parse(request('start_date'))->format('Y-m-d');
+            $end = Carbon::parse(request('end_date'))->format('Y-m-d');
+        } else {
+            $start = Carbon::now()->subDays(6)->format('Y-m-d');
+            $end = Carbon::now()->format('Y-m-d');
+        }
 
         $donation = Transaction::whereNotNull('donation_id')->whereBetween('created_at', [$start, $end])->get();
         return response()->json(new ApiResource(true, 'List Pemasukan Donasi', $donation), 200);
@@ -51,5 +61,19 @@ class ReportController extends Controller
         ]);
 
         return response()->json(new ApiResource(true, 'Berhasil menambahkan pengeluaran', $report), 201);
+    }
+
+    public function expend()
+    {
+        if (request('start_date') && request('end_date')) {
+            $start = Carbon::parse(request('start_date'))->format('Y-m-d');
+            $end = Carbon::parse(request('end_date'))->format('Y-m-d');
+        } else {
+            $start = Carbon::now()->subDays(6)->format('Y-m-d');
+            $end = Carbon::now()->format('Y-m-d');
+        }
+
+        $donation = Report::with('donation')->whereBetween('created_at', [$start, $end])->get();
+        return response()->json(new ApiResource(true, 'List Pengeluaran Donasi', $donation), 200);
     }
 }

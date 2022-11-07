@@ -16,6 +16,7 @@ Route::namespace('API\V1')->group(function () {
         Route::get('transactions', 'TransactionController@getTransactions');
         Route::get('reports/zakat', 'ReportController@zakat');
         Route::get('reports/donation', 'ReportController@donation');
+        Route::get('reports/expend', 'ReportController@expend');
         Route::get('reports/{donation}', 'ReportController@show');
 
         // Donations Events Lists and Get Details
