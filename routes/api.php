@@ -31,13 +31,14 @@ Route::namespace('API\V1')->group(function () {
         Route::middleware('auth:api')->group(function () {
             /** Logout */
             Route::post('logout', 'AuthController@logout');
+            
+            /** Forgot Password */
+            Route::put('users/forgot-password', 'UserController@forgot_password');
 
             /** User Module */
             Route::get('users/{id}', 'UserController@show');
             Route::put('users/{id}', 'UserController@update');
 
-            /** Forgot Password */
-            Route::put('users/forgot-password/{id}', 'UserController@forgot_password');
 
             /** Middleware to handle role admin */
             Route::middleware('admin')->group(function () {
