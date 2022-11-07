@@ -73,7 +73,7 @@ class ReportController extends Controller
             $end = Carbon::now()->format('Y-m-d');
         }
 
-        $donation = Report::with('donation')->whereBetween('created_at', [$start, $end])->get();
+        $donation = Report::with('donation')->whereBetween('date', [$start, $end])->get();
         return response()->json(new ApiResource(true, 'List Pengeluaran Donasi', $donation), 200);
     }
 }
