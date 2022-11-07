@@ -42,9 +42,22 @@ class TransactionSeeder extends Seeder
                 'nominal' => (int)$nominal[array_rand($nominal)],
                 'payment_status' => 2,
                 'user_id' => null,
+                'donation_id' => rand(1,30),
                 'name' => $faker->name,
-                'created_at' => '2022-11-01',
             ]);
         }
+
+        $nominal = [20000, 50000, 10000, 100000, 30000];
+        $faker = Factory::create();
+        for($i = 0; $i < 10; $i++) {
+            Transaction::create([
+                'nominal' => (int)$nominal[array_rand($nominal)],
+                'payment_status' => 2,
+                'user_id' => null,
+                'name' => $faker->name,
+                // 'created_at' => '2022-11-01',
+            ]);
+        }
+
     }
 }

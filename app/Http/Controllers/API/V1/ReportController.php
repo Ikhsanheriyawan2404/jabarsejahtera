@@ -16,10 +16,10 @@ class ReportController extends Controller
             $end = Carbon::parse(request('end_date'))->format('Y-m-d');
         } else {
             $start = Carbon::now()->subDays(6)->format('Y-m-d');
-            $end = Carbon::now()->format('Y-m-d');
+            $end = Carbon::now()->addDay()->format('Y-m-d');
         }
 
-        $zakat = Transaction::where('donation_id', NULL)->whereBetween('created_at', [$start, $end])->get();
+        $zakat = Transaction::where('donation_id', NULL)->where('created_at', '>=', $start)->where('created_at', '<=', $end)->get();
         return response()->json(new ApiResource(true, 'List Pemasukan Zakat', $zakat), 200);
     }
 
@@ -30,10 +30,10 @@ class ReportController extends Controller
             $end = Carbon::parse(request('end_date'))->format('Y-m-d');
         } else {
             $start = Carbon::now()->subDays(6)->format('Y-m-d');
-            $end = Carbon::now()->format('Y-m-d');
+            $end = Carbon::now()->addDay()->format('Y-m-d');
         }
 
-        $donation = Transaction::whereNotNull('donation_id')->whereBetween('created_at', [$start, $end])->get();
+        $donation = Transaction::whereNotNull('donation_id')->where('created_at', '>=', $start)->where('created_at', '<=', $end)->get();
         return response()->json(new ApiResource(true, 'List Pemasukan Donasi', $donation), 200);
     }
 
@@ -70,10 +70,10 @@ class ReportController extends Controller
             $end = Carbon::parse(request('end_date'))->format('Y-m-d');
         } else {
             $start = Carbon::now()->subDays(6)->format('Y-m-d');
-            $end = Carbon::now()->format('Y-m-d');
+            $end = Carbon::now()->addDay()->format('Y-m-d');
         }
 
-        $donation = Report::with('donation')->whereBetween('date', [$start, $end])->get();
+        $donation = Report::with('donation')->where('date', '>=', $start)->where('date', '<=', $end)->get();
         return response()->json(new ApiResource(true, 'List Pengeluaran Donasi', $donation), 200);
     }
 }
