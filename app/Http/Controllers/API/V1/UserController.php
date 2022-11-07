@@ -68,4 +68,22 @@ class UserController extends Controller
         $user->delete();
         return new ApiResource(true, 'Berhasil Menghapus User');
     }
+
+    public function forgot_password()
+    {
+        $user = User::where('email', request('email'))->first();
+            if ($user->user_detail->security_question === request('security_question')) {
+            request()->validate([
+                'password' => 'required|confirmed|min:6',
+                'password_confirmation' => 'required',
+                'security_question' => 'required',
+                'email' => 'required',
+            ]);
+            $user->update([
+                'password' => password_hash(request('password'), PASSWORD_DEFAULT),
+            ]);
+            return new ApiResource(true, 'Berhasil Mengupdate Password');
+        }
+        return response()->json(new ApiResource(true, 'Pertanyaan Keamanan Tidak Cocok!'), 400);
+    }
 }

@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         UserDetail::create([
             'id' => $user->id,
             'phone_number' => '08212837232',
-            'security_question' => 'fdsafsd',
+            'security_question' => 'mamah mudA',
         ]);
 
         $user = User::create([

@@ -31,7 +31,7 @@ class TransactionSeeder extends Seeder
                 'donation_id' => rand(1,30),
                 'user_id' => null,
                 'name' => $faker->name,
-                // 'phone_number' => $faker->phoneNumber,
+                'created_at' => '2022-01-01',
             ]);
         }
 

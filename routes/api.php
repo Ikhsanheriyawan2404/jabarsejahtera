@@ -36,6 +36,9 @@ Route::namespace('API\V1')->group(function () {
             Route::get('users/{id}', 'UserController@show');
             Route::put('users/{id}', 'UserController@update');
 
+            /** Forgot Password */
+            Route::put('users/forgot-password/{id}', 'UserController@forgot_password');
+
             /** Middleware to handle role admin */
             Route::middleware('admin')->group(function () {
                 Route::post('donations', 'DonationController@store');
